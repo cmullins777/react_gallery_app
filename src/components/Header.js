@@ -5,7 +5,7 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="main-nav">
-
+      <h1>Natural and Engineered Design</h1>
     </header>
   );
 }
