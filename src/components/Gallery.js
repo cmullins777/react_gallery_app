@@ -5,21 +5,25 @@ import NoImages from './NoImages';
 const Gallery = (props) => {
 
   const results = props.data;
+  console.log(results);
+
   let images;
+  console.log(images);
   if (results.length > 0) {
-    images = results.map(image => <Gallery url={`https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`} key={image.id}/>
+    images = results.map(image => <GalleryItem url={`https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`} key={image.id}/>
     );
   } else {
     images = <NoImages />
   }
 
-  console.log(results);
+
+
 
   return (
     <div className="photo-container">
       <h2>Results</h2>
       <ul>
-
+        { images }
       </ul>
     </div>
   );

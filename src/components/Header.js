@@ -1,11 +1,16 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 // Header with app title, search bar
 const Header = () => {
   return (
     <header className="main-nav">
-      <h1>Natural and Engineered Design</h1>
+        <ul>
+          <li><NavLink to='/penquins'>Penguins</NavLink></li>
+          <li><NavLink to='/dolphins'>Dolphins</NavLink></li>
+          <li><NavLink to='/otters'>Otters</NavLink></li>
+        </ul>
     </header>
   );
 }
