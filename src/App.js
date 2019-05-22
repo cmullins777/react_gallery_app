@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 // App components
 import Header from './components/Header.js';
@@ -7,6 +7,7 @@ import Nav from './components/Nav.js';
 import Gallery from './components/Gallery.js';
 import GalleryItem from './components/GalleryItem.js';
 import SearchForm from './components/SearchForm.js';
+import NoImagesFound from './components/NoImagesFound.js';
 import apiKey from './config.js';
 
 export default class App extends Component {
@@ -24,7 +25,7 @@ export default class App extends Component {
   componentDidMount() {
     this.performSearch('penguins');
     this.performSearch('dolphins');
-    this.performSearch('otters');
+    this.performSearch('puffins');
   }
 
   performSearch = (query) => {
@@ -37,9 +38,14 @@ export default class App extends Component {
         } else if (query === 'dolphins'){
           this.setState({ dolphins: responseData.photos.photo,
                           loading: false})
-        } else if (query === 'otters') {
-          this.setState({ otters: responseData.photos.photo,
+        } else if (query === 'puffins') {
+          this.setState({ puffins: responseData.photos.photo,
                           loading: false})
+        } else {
+          this.setState({ images : responseData.photo.photo,
+                          query : SearchForm.input.name,
+                          loading: false})
+                          console.log(query);
         }
       })
       .catch(error => {
@@ -48,23 +54,24 @@ export default class App extends Component {
   }
 
   render () {
-    return (
-      <BrowserRouter>
-      <div>
-        <h1> Amazing Aquatic Animals </h1>
-        <Header />
-        <p> This is a simple search app </p>
-         <Route path ="/" component={GalleryItem} />
-        <SearchForm onSearch={this.performSearch} />
-         <div>
-           {
-             (this.state.loading)
-             ? <p>Loading...</p>
-             : <Gallery data={this.state.images}/>
-           }
+      return (
+        <BrowserRouter>
+        <div>
+          <h1> Amazing Aquatic Animals </h1>
+          <p> This is a simple search app </p>
+           <Route
+             render={props =>
+            <SearchForm {...props} onSearch={this.performSearch} /> } />
+              <Header />
+                <Switch>
+                  <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.images} query="searchText" /> } />
+                  <Route path="/penguins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.penguins} query="penguins" /> } />
+                  <Route path="/dolphins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.dolphins} query="dolphins" /> } />
+                  <Route path="/puffins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.puffins} query="puffins" /> } />
+                  <Route component={ NoImagesFound } />
+                </Switch>
          </div>
-       </div>
-      </BrowserRouter>
-    );
-  }
+        </BrowserRouter>
+      );
+    }
 }

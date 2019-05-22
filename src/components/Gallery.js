@@ -1,6 +1,6 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
-import NoImages from './NoImages';
+import NoImagesFound from './NoImagesFound';
 
 const Gallery = (props) => {
 
@@ -13,11 +13,8 @@ const Gallery = (props) => {
     images = results.map(image => <GalleryItem url={`https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}.jpg`} key={image.id}/>
     );
   } else {
-    images = <NoImages />
+    images = <NoImagesFound />
   }
-
-
-
 
   return (
     <div className="photo-container">

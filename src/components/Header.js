@@ -7,9 +7,9 @@ const Header = () => {
   return (
     <header className="main-nav">
         <ul>
-          <li><NavLink to='/penquins'>Penguins</NavLink></li>
+          <li><NavLink to='/penguins'>Penguins</NavLink></li>
           <li><NavLink to='/dolphins'>Dolphins</NavLink></li>
-          <li><NavLink to='/otters'>Otters</NavLink></li>
+          <li><NavLink to='/puffins'>Puffins</NavLink></li>
         </ul>
     </header>
   );
