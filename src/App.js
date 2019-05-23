@@ -1,33 +1,33 @@
+// Import React libraries
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 
 // App components
 import Header from './components/Header.js';
 import Nav from './components/Nav.js';
 import Gallery from './components/Gallery.js';
-import GalleryItem from './components/GalleryItem.js';
 import SearchForm from './components/SearchForm.js';
 import NoImagesFound from './components/NoImagesFound.js';
 import apiKey from './config.js';
 
+// Assign state to App, the highest level component
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
       images: [],
-      penguins: [],
-      dolphins: [],
-      otters: [],
       loading: true
     };
   }
 
+// Initializations requiring DOM nodes, invoked immediately after a component is mounted.
   componentDidMount() {
     this.performSearch('penguins');
     this.performSearch('dolphins');
     this.performSearch('puffins');
   }
 
+//  API call using 'fetch' to flickr.com, conditional response of 3 choices and SearchForm query
   performSearch = (query) => {
     fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => response.json())
@@ -43,7 +43,7 @@ export default class App extends Component {
                           loading: false})
         } else {
           this.setState({ images : responseData.photo.photo,
-                          query : SearchForm.input.name,
+                          query : SearchForm.query.name,
                           loading: false})
                           console.log(query);
         }
@@ -52,26 +52,27 @@ export default class App extends Component {
         console.log('Error fetching and parsing data', error);
       });
   }
-
+// App layout rendered to the DOM with routes for each selection option
   render () {
-      return (
-        <BrowserRouter>
+    return (
+      <BrowserRouter>
         <div>
-          <h1> Amazing Aquatic Animals </h1>
-          <p> This is a simple search app </p>
-           <Route
-             render={props =>
-            <SearchForm {...props} onSearch={this.performSearch} /> } />
-              <Header />
-                <Switch>
-                  <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.images} query="searchText" /> } />
-                  <Route path="/penguins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.penguins} query="penguins" /> } />
-                  <Route path="/dolphins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.dolphins} query="dolphins" /> } />
-                  <Route path="/puffins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.puffins} query="puffins" /> } />
-                  <Route component={ NoImagesFound } />
-                </Switch>
-         </div>
+          <Header />
+            <p> This is a simple search app </p>
+              <Route
+                render={props =>
+                <SearchForm {...props} onSearch={this.performSearch} /> } />
+                  <Nav />
+                    <Switch>
+                      <Route exact path="/" render={ () => (this.state.loading) ? <p>Loading...</p> : <Redirect to="penguins" /> } />
+                      <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.images} query="searchText" /> } />
+                      <Route path="/penguins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.penguins} query="penguins" /> } />
+                      <Route path="/dolphins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.dolphins} query="dolphins" /> } />
+                      <Route path="/puffins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.puffins} query="puffins" /> } />
+                      <Route component={ NoImagesFound } />
+                    </Switch>
+          </div>
         </BrowserRouter>
       );
-    }
+   }
 }

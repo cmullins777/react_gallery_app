@@ -1,17 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
-
-// Header with app title, search bar
+// Header with app title
 const Header = () => {
   return (
-    <header className="main-nav">
-        <ul>
-          <li><NavLink to='/penguins'>Penguins</NavLink></li>
-          <li><NavLink to='/dolphins'>Dolphins</NavLink></li>
-          <li><NavLink to='/puffins'>Puffins</NavLink></li>
-        </ul>
-    </header>
+    <h1>
+      <header className="main-nav">
+        Amazing Aquatic Animals
+      </header>
+    </h1>  
   );
 }
 

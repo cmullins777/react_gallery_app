@@ -1,9 +1,9 @@
 import React from 'react';
 
-// GalleryItem component
+//GalleryItem component renders individual images with unique keys
 const GalleryItem = (props) => (
   <li className="photo-container">
-    <img src={props.url} alt=""/>
+    <img src={props.url} alt =""/>
   </li>
 );
 

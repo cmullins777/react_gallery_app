@@ -1,10 +1,11 @@
 import React from 'react';
-
-const NoImagesFound = props => (
-  <li className='no-images'>
-    <i className="material-icons icon-gif">sentiment_very_dissatisfied</i>
-    <h3>Sorry, no images match your search</h3>
-  </li>
+import MaterialIcon, {colorPalette} from 'material-icons-react';
+// Error displayed when no matching images found
+const NoImagesFound = (props) => (
+  <div>
+    <MaterialIcon icon="sentiment_very_dissatisfied" />
+    <h3>Sorry, we couldn't find a match for that.</h3>
+  </div>
 );
 
 export default NoImagesFound;
