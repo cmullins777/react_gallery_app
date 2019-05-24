@@ -1,5 +1,5 @@
 import React from 'react';
-import MaterialIcon, {colorPalette} from 'material-icons-react';
+import MaterialIcon from 'material-icons-react';
 // Error displayed when no matching images found
 const NoImagesFound = (props) => (
   <div>

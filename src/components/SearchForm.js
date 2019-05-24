@@ -8,6 +8,7 @@ export default class SearchForm extends Component {
 // Ties search event to change in state
   onSearchChange = e => {
     this.setState({ searchText: e.target.value});
+    console.log(SearchForm.input);
   }
 // Submits query text and resets input field
   handleSubmit = e => {

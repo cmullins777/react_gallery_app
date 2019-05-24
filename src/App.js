@@ -16,12 +16,14 @@ export default class App extends Component {
     super();
     this.state = {
       images: [],
+      results: [],
       loading: true
     };
   }
 
 // Initializations requiring DOM nodes, invoked immediately after a component is mounted.
   componentDidMount() {
+    this.performSearch();
     this.performSearch('penguins');
     this.performSearch('dolphins');
     this.performSearch('puffins');
@@ -42,8 +44,7 @@ export default class App extends Component {
           this.setState({ puffins: responseData.photos.photo,
                           loading: false})
         } else {
-          this.setState({ images : responseData.photo.photo,
-                          query : SearchForm.query.name,
+          this.setState({ results : responseData.photo.photo,
                           loading: false})
                           console.log(query);
         }
@@ -65,7 +66,7 @@ export default class App extends Component {
                   <Nav />
                     <Switch>
                       <Route exact path="/" render={ () => (this.state.loading) ? <p>Loading...</p> : <Redirect to="penguins" /> } />
-                      <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.images} query="searchText" /> } />
+                      <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.results} /> } />
                       <Route path="/penguins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.penguins} query="penguins" /> } />
                       <Route path="/dolphins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.dolphins} query="dolphins" /> } />
                       <Route path="/puffins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.puffins} query="puffins" /> } />
