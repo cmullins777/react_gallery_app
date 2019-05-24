@@ -66,7 +66,7 @@ export default class App extends Component {
                   <Nav />
                     <Switch>
                       <Route exact path="/" render={ () => (this.state.loading) ? <p>Loading...</p> : <Redirect to="penguins" /> } />
-                      <Route exact path="/search/:query" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.results} /> } />
+                      <Route exact path="/search/:searchText" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.results} /> } />
                       <Route path="/penguins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.penguins} query="penguins" /> } />
                       <Route path="/dolphins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.dolphins} query="dolphins" /> } />
                       <Route path="/puffins" render={ () => (this.state.loading) ? <p>Loading...</p> : <Gallery data={this.state.puffins} query="puffins" /> } />
