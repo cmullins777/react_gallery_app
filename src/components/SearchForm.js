@@ -10,7 +10,11 @@ export default class SearchForm extends Component {
     this.setState({ searchText: e.target.value});
   }
 // Submits query text and resets input field
+// Updates search URL to route to queried topic
   handleSubmit = e => {
+    this.props.history.push(
+     `/search/${this.state.searchText}`
+    );
     e.preventDefault();
     this.props.onSearch(this.query.value);
     e.currentTarget.reset();
